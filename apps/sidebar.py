@@ -3,7 +3,7 @@ import streamlit as st
 
 class Sidebar:
     def __init__(self):
-        self._chart_option = st.sidebar.radio('Select data type for non-rate graphs', ["daily", "cumulative"])
+        self._chart_option = st.sidebar.radio('Select graph type for non-rate graphs', ["daily", "cumulative"])
 
         st.markdown('<style>#vg-tooltip-element{z-index: 1000052}</style>',
                     unsafe_allow_html=True)  # fix for tooltip bug when full screen; here since common factor
