@@ -1,7 +1,6 @@
 import streamlit as st
 
 
-@st.cache
 class Sidebar:
     def __init__(self):
         self._chart_option = st.sidebar.radio('Select graph type for non-rate graphs', ["daily", "cumulative"])
@@ -35,6 +34,5 @@ class Sidebar:
         st.sidebar.write("Population Data: [California Department of Finance: Demographic Research Unit]"
                          "(https://dof.ca.gov/Forecasting/Demographics/Estimates/e-1/)")
 
-    @st.cache
     def get_chart_option(self):
         return self._chart_option
