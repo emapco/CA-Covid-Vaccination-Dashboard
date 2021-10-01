@@ -10,9 +10,7 @@ DEMOGRAPHICS_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demo
 
 
 @st.cache
-def get_state_data():
-    df = app_util.get_data_from_csv(STATE_CSV)
-
+def get_state_data(df):
     state_data = df[["county", "administered_date", "cumulative_fully_vaccinated",
                      "cumulative_at_least_one_dose", "est_population"]]  # select relevant columns
 
@@ -41,13 +39,11 @@ def get_state_data():
 
 
 @st.cache
-def get_vaccine_maker_data(chart_option):
+def get_vaccine_maker_data(df, chart_option):
     if chart_option != "daily" or chart_option is None:
         prefix = "cumulative_"
     else:
         prefix = ""
-
-    df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)
 
     # groups data by date and then melts it into long form to plot different vaccine maker data
     maker_data = df[[f"{prefix}pfizer_doses", f"{prefix}moderna_doses",
@@ -79,10 +75,12 @@ def app():
     #########################
     # Main content
     #########################
+    maker_csv_df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)
     st.markdown("### Vaccines administered in California by vaccine maker")
-    maker_df, maker_args = get_vaccine_maker_data(chart_option)
+    maker_df, maker_args = get_vaccine_maker_data(maker_csv_df, chart_option)
     app_util.plot_data(maker_df, *maker_args)
 
+    state_csv_df = app_util.get_data_from_csv(STATE_CSV)
     st.markdown("### State partial and fully vaccination rate")
-    state_df, state_args = get_state_data()
+    state_df, state_args = get_state_data(state_csv_df)
     app_util.plot_data(state_df, *state_args)

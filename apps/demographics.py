@@ -2,16 +2,15 @@ import streamlit as st
 import app_util
 from apps import sidebar
 
+
 DEMOGRAPHICS_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics.csv"
 
 @st.cache
-def get_demographic_data(chart_option):
+def get_demographic_data(df, chart_option):
     if chart_option == "cumulative":
         prefix = "cumulative_"
     else:
         prefix = ""
-
-    df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)
 
     # select different demographic categories and two other columns to plot
     age_group_data = df.loc[df["demographic_category"] == "Age Group"] \
@@ -25,6 +24,7 @@ def get_demographic_data(chart_option):
                       'demographic_value', 'Vaccinations by Demographic category']
     return age_group_data, gender_data, race_data, plot_arguments
 
+
 def app():
     st.title("California Covid-19 Vaccination Dashboard")  # setting page title
 
@@ -37,8 +37,9 @@ def app():
     #########################
     # Main content
     #########################
+    df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)  # init df here is more efficient than in cached function
     st.markdown("### Vaccine Administered by Demographics")
-    age_df, gender_df, race_df, demographic_args = get_demographic_data(chart_option)
+    age_df, gender_df, race_df, demographic_args = get_demographic_data(df, chart_option)
     app_util.plot_data(age_df, *demographic_args)
     app_util.plot_data(gender_df, *demographic_args)
     app_util.plot_data(race_df, *demographic_args)

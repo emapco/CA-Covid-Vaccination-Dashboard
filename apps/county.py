@@ -4,11 +4,12 @@ import pandas as pd
 import app_util
 from apps import sidebar
 
+
 COUNTY_CSV = "data/vaccine_progress/statewide-vaccines-administered-by-county-population.csv"
 
+
 @st.cache
-def get_county_data():
-    df = app_util.get_data_from_csv(COUNTY_CSV)
+def get_county_data(df):
     ###########################################################################################
     # vaccine administered by county
     ###########################################################################################
@@ -52,6 +53,7 @@ def app():
     #########################
     # Main content
     #########################
+    county_csv_df = app_util.get_data_from_csv(COUNTY_CSV)
     st.markdown("### Counties with under 60% population vaccination rate")
-    county_df, county_args = get_county_data()
+    county_df, county_args = get_county_data(county_csv_df)
     app_util.plot_data(county_df, *county_args)
