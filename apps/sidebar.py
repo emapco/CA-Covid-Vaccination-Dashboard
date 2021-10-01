@@ -5,6 +5,9 @@ class Sidebar:
     def __init__(self):
         self._chart_option = st.sidebar.radio('Select data type for non-rate graphs', ["daily", "cumulative"])
 
+        st.markdown('<style>#vg-tooltip-element{z-index: 1000052}</style>',
+                    unsafe_allow_html=True)  # fix for tooltip bug when full screen; here since common factor
+
         st.sidebar.write("")
         st.sidebar.title("Dashboard Data Dictionary")
         st.sidebar.markdown("**Administered Date**: Date on which the vaccine was administered. This is different "
@@ -27,5 +30,6 @@ class Sidebar:
         st.sidebar.write("Source: [California Department of Public Health]"
                          "(https://data.chhs.ca.gov/dataset/vaccine-progress-dashboard)")
 
+    @st.cache
     def get_chart_option(self):
         return self._chart_option
