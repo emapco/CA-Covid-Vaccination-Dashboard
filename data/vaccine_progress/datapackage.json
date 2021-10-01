@@ -1,0 +1,912 @@
+{
+  "accrual_periodicity": "daily",
+  "additional_limitations": "",
+  "citation": "",
+  "contact_email": "opendata@cdph.ca.gov",
+  "data_collection_tool": "",
+  "data_license": "Terms of Use",
+  "de_identification_method": "",
+  "description": "__Note__: Starting on May 18, 2021, the denominator for calculating vaccine coverage has been changed from age 16+ to age 12+ to reflect new vaccine eligibility criteria. The previous dataset based on age 16+ denominators has been uploaded as an archived table.\r\n\r\nStarting on May 29, 2021 the methodology for calculating on-hand inventory in the shipped/delivered/on-hand dataset has changed. Please see the accompanying data dictionary for details. In addition, this dataset is now down to the ZIP code level.\r\n\r\nThis data is from the same source as the Vaccine Progress Dashboard at https://covid19.ca.gov/vaccines/ which summarizes vaccination data at the county level by county of residence. Where county of residence was not reported in a vaccination record, the county of provider that vaccinated the resident is included. This applies to less than 1% of vaccination records. The sum of county-level vaccinations does not equal statewide total vaccinations due to out-of-state residents vaccinated in California.\r\n\r\nThis dataset also includes Vaccine Equity Metric score quartiles, which combine the Public Health Alliance of Southern California’s Healthy Places Index (HPI) measure with CDPH-derived scores to estimate factors that impact health, like income, education, and access to health care. Zip codes range from less healthy community conditions in Quartile 1 to more healthy community conditions in Quartile 4.\r\n\r\nThe Vaccine Equity Metric is for weekly vaccination allocation and reporting purposes only. CDPH-derived quartiles should not be considered as indicative of the HPI score for these zip codes. CDPH-derived quartiles were assigned to zip codes excluded from the HPI score produced by the Public Health Alliance of Southern California due to concerns with statistical reliability and validity in populations smaller than 1,500 or where more than 50% of the population resides in a group setting.\r\n\r\nThese data do not include doses administered by the following federal agencies who received vaccine allocated directly from CDC: Indian Health Service, Veterans Health Administration, Department of Defense, and the Federal Bureau of Prisons.\r\n\r\n__Note:__ Totals for the Vaccine Progress Dashboard and this dataset may not match, as the Dashboard totals doses by Report Date and this dataset totals doses by Administration Date. Dose numbers may also change for a particular Administration Date as data is updated.",
+  "geo_coverage": "California",
+  "geographic_granularity": "county",
+  "keywords": [
+    "COVID",
+    "COVID-19",
+    "COVID19",
+    "vaccines"
+  ],
+  "limitations": "Limitations",
+  "name": "vaccine-progress-dashboard",
+  "program_web_page": "https://covid19.ca.gov/vaccines/",
+  "related_resources": "",
+  "resources": [
+    {
+      "description": "Statewide COVID-19 Vaccines Administered By County",
+      "format": "CSV",
+      "hash": "b71d9b20f2ad6d71b4ee0d2f4243f609",
+      "name": "statewide-covid-19-vaccines-administered-by-county",
+      "path": "statewide-covid-19-vaccines-administered-by-county.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "county",
+            "type": "string"
+          },
+          {
+            "name": "administered_date",
+            "type": "string"
+          },
+          {
+            "name": "total_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_total_doses",
+            "type": "string"
+          },
+          {
+            "name": "pfizer_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_pfizer_doses",
+            "type": "string"
+          },
+          {
+            "name": "moderna_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_moderna_doses",
+            "type": "string"
+          },
+          {
+            "name": "jj_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_jj_doses",
+            "type": "string"
+          },
+          {
+            "name": "partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "total_partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "california_flag",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/130d7ba2-b6eb-438d-a412-741bde207e1c/download/covid19vaccinesbycounty.csv",
+          "title": "Statewide COVID-19 Vaccines Administered By County"
+        }
+      ],
+      "title": "Statewide COVID-19 Vaccines Administered By County"
+    },
+    {
+      "format": "XLSX",
+      "hash": "29c95c6708fb1898522e26f9f7fff02d",
+      "name": "covid-19-progress-dashboard-data-dictionary",
+      "path": "covid-19-progress-dashboard-data-dictionary.xlsx",
+      "schema": {
+        "fields": [
+          {
+            "name": "Column Name",
+            "type": "string"
+          },
+          {
+            "name": "Format",
+            "type": "string"
+          },
+          {
+            "name": "Definition",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/d995e0fa-aa50-43e3-9753-94e9bf1df12f/download/covid-19-progress-dashboard-data-dictionary.xlsx",
+          "title": "COVID-19 Progress Dashboard Data Dictionary"
+        }
+      ],
+      "title": "COVID-19 Progress Dashboard Data Dictionary"
+    },
+    {
+      "description": "Statewide COVID-19 Vaccines Administered By Demographics",
+      "format": "CSV",
+      "hash": "7fce04d71cdd6704847c22d897932eb9",
+      "name": "covid-19-vaccines-administered-by-demographics",
+      "path": "covid-19-vaccines-administered-by-demographics.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "demographic_category",
+            "type": "string"
+          },
+          {
+            "name": "demographic_value",
+            "type": "string"
+          },
+          {
+            "name": "administered_date",
+            "type": "string"
+          },
+          {
+            "name": "total_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_total_doses",
+            "type": "string"
+          },
+          {
+            "name": "pfizer_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_pfizer_doses",
+            "type": "string"
+          },
+          {
+            "name": "moderna_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_moderna_doses",
+            "type": "string"
+          },
+          {
+            "name": "jj_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_jj_doses",
+            "type": "string"
+          },
+          {
+            "name": "partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "total_partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_at_least_one_dose",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/faee36da-bd8c-40f7-96d4-d8f283a12b0a/download/covid19vaccinesadministeredbydemographics.csv",
+          "title": "COVID-19 Vaccines Administered By Demographics"
+        }
+      ],
+      "title": "COVID-19 Vaccines Administered By Demographics"
+    },
+    {
+      "format": "XLSX",
+      "hash": "660a6389e110b95f85f9e8b1089b5e55",
+      "name": "covid-19-vaccinations-by-demographics-data-dictionary",
+      "path": "covid-19-vaccinations-by-demographics-data-dictionary.xlsx",
+      "schema": {
+        "fields": [
+          {
+            "name": "Column Name",
+            "type": "string"
+          },
+          {
+            "name": "Format",
+            "type": "string"
+          },
+          {
+            "name": "Definition",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/897c4e9a-677a-47cc-b4a3-d3ce2f641491/download/covid-19-progress-dashboard-demographics-data-dictionary_v2.xlsx",
+          "title": "COVID-19 Vaccinations By Demographics - Data Dictionary"
+        }
+      ],
+      "title": "COVID-19 Vaccinations By Demographics - Data Dictionary"
+    },
+    {
+      "description": "Statewide COVID-19 Vaccines Administered By VEM Quartilet",
+      "format": "CSV",
+      "hash": "8e2e523e0b86265c3fce46700575c354",
+      "name": "covid-19-vaccines-administered-by-vem-quartile",
+      "path": "covid-19-vaccines-administered-by-vem-quartile.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "vemquartile",
+            "type": "string"
+          },
+          {
+            "name": "administered_date",
+            "type": "string"
+          },
+          {
+            "name": "total_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_total_doses",
+            "type": "string"
+          },
+          {
+            "name": "pfizer_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_pfizer_doses",
+            "type": "string"
+          },
+          {
+            "name": "moderna_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_moderna_doses",
+            "type": "string"
+          },
+          {
+            "name": "jj_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_jj_doses",
+            "type": "string"
+          },
+          {
+            "name": "partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "total_partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "pct_age12pop_partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "pct_age12pop_fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "pct_age12pop_at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "age12_population",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/22b05bf3-16e5-4b2b-a66a-6b035e0cd9f4/download/covid19vaccinesadministeredbyhpiquartile.csv",
+          "title": "COVID-19 Vaccines Administered By VEM Quartile"
+        }
+      ],
+      "title": "COVID-19 Vaccines Administered By VEM Quartile"
+    },
+    {
+      "description": "Legacy table based on age 16+ denominators up to May 17, 2021.",
+      "format": "CSV",
+      "hash": "ebd2592296dc82c1c405baf936d90755",
+      "name": "covid-19-vaccines-administered-by-vem-quartile-archived",
+      "path": "covid-19-vaccines-administered-by-vem-quartile-archived.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "vemquartile",
+            "type": "string"
+          },
+          {
+            "name": "administered_date",
+            "type": "string"
+          },
+          {
+            "name": "total_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_total_doses",
+            "type": "string"
+          },
+          {
+            "name": "pfizer_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_pfizer_doses",
+            "type": "string"
+          },
+          {
+            "name": "moderna_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_moderna_doses",
+            "type": "string"
+          },
+          {
+            "name": "jj_doses",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_jj_doses",
+            "type": "string"
+          },
+          {
+            "name": "partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "total_partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "pct_age16pop_partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "pct_age16pop_fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "pct_age16pop_at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "age16_population",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/7b3a32fa-0f1d-4ba4-80b3-64ef61c88b12/download/covid19vaccinesadministeredbyhpiquartile_age16_archive.csv",
+          "title": "COVID-19 Vaccines Administered By VEM Quartile (archived)"
+        }
+      ],
+      "title": "COVID-19 Vaccines Administered By VEM Quartile (archived)"
+    },
+    {
+      "format": "XLSX",
+      "hash": "1268376e1eca0cbbc01c02723b559a33",
+      "name": "covid-19-vaccines-by-vem-quartile-data-dictionary",
+      "path": "covid-19-vaccines-by-vem-quartile-data-dictionary.xlsx",
+      "schema": {
+        "fields": [
+          {
+            "name": "Column Name",
+            "type": "string"
+          },
+          {
+            "name": "Format",
+            "type": "string"
+          },
+          {
+            "name": "Definition",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/14b3a833-bacb-4b27-81ff-fdbc196ac8b1/download/covid-19-progress-dashboard-vem-data-dictionary.xlsx",
+          "title": "COVID-19 Vaccines By VEM Quartile - Data Dictionary"
+        }
+      ],
+      "title": "COVID-19 Vaccines By VEM Quartile - Data Dictionary"
+    },
+    {
+      "description": "COVID-19 Vaccines Shipped, Delivered, On Hand",
+      "format": "CSV",
+      "hash": "a939c4ba0168829d9d5fb50c2fd7fec1",
+      "name": "covid-19-vaccines-shipped-delivered-on-hand",
+      "path": "covid-19-vaccines-shipped-delivered-on-hand.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "date",
+            "type": "string"
+          },
+          {
+            "name": "doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "cdc_pharmacy_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_cdc_pharmacy_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "doses_on_hand",
+            "type": "string"
+          },
+          {
+            "name": "pfizer_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_pfizer_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "pfizer_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_pfizer_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "pfizer_doses_on_hand",
+            "type": "string"
+          },
+          {
+            "name": "moderna_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_moderna_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "moderna_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_moderna_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "moderna_doses_on_hand",
+            "type": "string"
+          },
+          {
+            "name": "jj_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_jj_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "jj_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_jj_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "jj_doses_on_hand",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/e2f470a2-b1e3-4dce-8d33-53b4166f8930/download/covid19vaccinesshipped_delivered_onhand.csv",
+          "title": "COVID-19 Vaccines Shipped, Delivered, On Hand"
+        }
+      ],
+      "title": "COVID-19 Vaccines Shipped, Delivered, On Hand"
+    },
+    {
+      "description": "Legacy table based on previous \"On Hand\" metric up to May 28, 2021.",
+      "format": "CSV",
+      "hash": "e08f490116cf61bfde8b4a52bcd75dbc",
+      "name": "covid-19-vaccines-shipped-delivered-on-hand-archived",
+      "path": "covid-19-vaccines-shipped-delivered-on-hand-archived.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "date",
+            "type": "string"
+          },
+          {
+            "name": "doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "cdc_pharmacy_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_cdc_pharmacy_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "doses_on_hand",
+            "type": "string"
+          },
+          {
+            "name": "pfizer_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_pfizer_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "pfizer_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_pfizer_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "pfizer_doses_on_hand",
+            "type": "string"
+          },
+          {
+            "name": "moderna_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_moderna_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "moderna_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_moderna_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "moderna_doses_on_hand",
+            "type": "string"
+          },
+          {
+            "name": "jj_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_jj_doses_shipped",
+            "type": "string"
+          },
+          {
+            "name": "jj_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_jj_doses_delivered",
+            "type": "string"
+          },
+          {
+            "name": "jj_doses_on_hand",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/e1a6b0e5-e559-4bf3-a07d-226922a7c8f1/download/covid19vaccinesshipped_delivered_onhand_archived.csv",
+          "title": "COVID-19 Vaccines Shipped, Delivered, On Hand (archived)"
+        }
+      ],
+      "title": "COVID-19 Vaccines Shipped, Delivered, On Hand (archived)"
+    },
+    {
+      "format": "XLSX",
+      "name": "covid-19-vaccines-shipped-and-delivered-data-dictionary",
+      "path": "covid-19-vaccines-shipped-and-delivered-data-dictionary.xlsx",
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/28c372ff-960f-417f-b009-f92296ea54ff/download/shipped_delivered_on_hand_odp_data_dictionary_v2.xlsx",
+          "title": "COVID-19 Vaccines Shipped and Delivered - Data Dictionary"
+        }
+      ],
+      "title": "COVID-19 Vaccines Shipped and Delivered - Data Dictionary"
+    },
+    {
+      "description": "COVID-19 Vaccines Administered By Demographics By County",
+      "format": "CSV",
+      "hash": "c5d3cf8c62578a09c68d81d0a0d2367b",
+      "name": "covid-19-vaccines-administered-by-demographics-by-county",
+      "path": "covid-19-vaccines-administered-by-demographics-by-county.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "county",
+            "type": "string"
+          },
+          {
+            "name": "county_type",
+            "type": "string"
+          },
+          {
+            "name": "demographic_category",
+            "type": "string"
+          },
+          {
+            "name": "demographic_value",
+            "type": "string"
+          },
+          {
+            "name": "est_population",
+            "type": "string"
+          },
+          {
+            "name": "est_age_12plus_pop",
+            "type": "string"
+          },
+          {
+            "name": "administered_date",
+            "type": "string"
+          },
+          {
+            "name": "partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "total_partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_unvax_total_pop",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_unvax_12plus_pop",
+            "type": "string"
+          },
+          {
+            "name": "suppress_data",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/71729331-2f09-4ea4-a52f-a2661972e146/download/covid19vaccinesbycountybydemographic.csv",
+          "title": "COVID-19 Vaccines Administered By Demographics By County"
+        }
+      ],
+      "title": "COVID-19 Vaccines Administered By Demographics By County"
+    },
+    {
+      "description": "Legacy table based on age 16+ denominators up to May 17, 2021.",
+      "format": "CSV",
+      "hash": "769ca16316be1ce7946008ce3975225c",
+      "name": "covid-19-vaccines-administered-by-demographics-by-county-archived",
+      "path": "covid-19-vaccines-administered-by-demographics-by-county-archived.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "county",
+            "type": "string"
+          },
+          {
+            "name": "county_type",
+            "type": "string"
+          },
+          {
+            "name": "demographic_category",
+            "type": "string"
+          },
+          {
+            "name": "demographic_value",
+            "type": "string"
+          },
+          {
+            "name": "est_population",
+            "type": "string"
+          },
+          {
+            "name": "est_age_16plus_pop",
+            "type": "string"
+          },
+          {
+            "name": "administered_date",
+            "type": "string"
+          },
+          {
+            "name": "partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "total_partially_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_fully_vaccinated",
+            "type": "string"
+          },
+          {
+            "name": "at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_at_least_one_dose",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_unvax_total_pop",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_unvax_16plus_pop",
+            "type": "string"
+          },
+          {
+            "name": "suppress_data",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/1c67d32e-c41c-453a-9e5f-40a5867df4ad/download/covid19vaccinesbycountybydemographic_age16_archive.csv",
+          "title": "COVID-19 Vaccines Administered By Demographics By County (archived)"
+        }
+      ],
+      "title": "COVID-19 Vaccines Administered By Demographics By County (archived)"
+    },
+    {
+      "format": "XLSX",
+      "hash": "01049c7cac4bd08172a37664d546a332",
+      "name": "covid-19-vaccines-by-demographics-by-county-data-dictionary",
+      "path": "covid-19-vaccines-by-demographics-by-county-data-dictionary.xlsx",
+      "schema": {
+        "fields": [
+          {
+            "name": "Column Name",
+            "type": "string"
+          },
+          {
+            "name": "Format",
+            "type": "string"
+          },
+          {
+            "name": "Definition",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/e283ee5a-cf18-4f20-a92c-ee94a2866ccd/resource/71aa4f74-fd13-48f6-a426-d828697696cd/download/covid-19-progress-dashboard-demographics-bycounty-data-dictionary_v2.xlsx",
+          "title": "COVID-19 Vaccines By Demographics by County - Data Dictionary"
+        }
+      ],
+      "title": "COVID-19 Vaccines By Demographics by County - Data Dictionary"
+    }
+  ],
+  "secondary_sources": "",
+  "sources": [
+    {
+      "name": "California COVID-19 Vaccination Program"
+    }
+  ],
+  "temporal_coverage": "2021-present",
+  "title": "COVID-19 Vaccine Progress Dashboard Data"
+}

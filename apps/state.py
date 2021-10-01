@@ -7,6 +7,7 @@ from apps import sidebar
 COUNTY_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics-by-county.csv"
 DEMOGRAPHICS_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics.csv"
 
+
 @st.cache
 def get_state_data(df):
     state_data = df[["county", "administered_date", "cumulative_fully_vaccinated",

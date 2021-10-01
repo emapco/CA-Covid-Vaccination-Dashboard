@@ -1,7 +1,6 @@
 ### Python template
 # User-defined
 .idea/
-data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
