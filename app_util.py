@@ -26,11 +26,11 @@ def plot_data(df, y, y_title, z, chart_title, start_date=None, chart_type=None):
 
     z_no_qualifier = z.split(":")[0]  # to be able to refer to the column
     y_no_quantifier = y.split(":")[0]
-    x_axis_ticks = source["administered_date"].tolist()[::10]  # generate a list of dates for x-axis markers
+    # x_axis_ticks = source["administered_date"].tolist()[::10]  # generate a list of dates for x-axis markers
 
     # init chart base
     base = alt.Chart(source).encode(x=alt.X('administered_date:T',
-                                            axis=alt.Axis(values=x_axis_ticks, format='%m/%d', grid=True),
+                                            axis=alt.Axis(format='%m/%d', grid=True),  # values=x_axis_ticks (alt.Axis)
                                             title="administered date (MM/DD)"))
     columns = sorted(source[z_no_qualifier].unique())
     selection = alt.selection_single(fields=['administered_date'], nearest=True, on='mouseover',
