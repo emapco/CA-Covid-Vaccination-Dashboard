@@ -4,7 +4,7 @@ import pandas as pd
 import app_util
 from apps import sidebar
 
-COUNTY_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics-by-county.csv"
+STATE_CSV = "data/vaccine_progress/statewide-covid-19-vaccines-administered-by-county.csv"
 DEMOGRAPHICS_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics.csv"
 
 
@@ -73,7 +73,7 @@ def app():
     #########################
     # Main content
     #########################
-    county_csv_df = app_util.get_data_from_csv(COUNTY_CSV)
+    county_csv_df = app_util.get_data_from_csv(STATE_CSV)
     demographics_csv_df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)
 
     st.markdown("### Vaccines administered in California by vaccine maker")
@@ -83,4 +83,3 @@ def app():
     st.markdown("### State partial and fully vaccination rate")
     state_df, state_args = get_state_data(county_csv_df)
     app_util.plot_data(state_df, *state_args)
-

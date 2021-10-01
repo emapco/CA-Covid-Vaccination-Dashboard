@@ -4,7 +4,7 @@ import pandas as pd
 import app_util
 from apps import sidebar
 
-COUNTY_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics-by-county.csv"
+COUNTY_CSV = "data/vaccine_progress/statewide-covid-19-vaccines-administered-by-county.csv"
 
 
 @st.cache
