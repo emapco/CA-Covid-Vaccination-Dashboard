@@ -4,6 +4,7 @@ import pandas as pd
 import app_util
 from apps import sidebar
 
+
 STATE_CSV = "data/vaccine_progress/statewide-vaccines-administered-by-county-population.csv"
 DEMOGRAPHICS_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics.csv"
 
@@ -14,7 +15,7 @@ def get_state_data():
 
     state_data = df[["county", "administered_date", "cumulative_fully_vaccinated",
                      "cumulative_at_least_one_dose", "est_population"]]  # select relevant columns
-    print(state_data)
+
     state_data = state_data[
         state_data["county"] == "All CA Counties"]  # select Statewide data
     state_data = state_data.groupby(
@@ -41,7 +42,7 @@ def get_state_data():
 
 @st.cache
 def get_vaccine_maker_data(chart_option):
-    if chart_option == "cumulative":
+    if chart_option != "daily" or chart_option is None:
         prefix = "cumulative_"
     else:
         prefix = ""

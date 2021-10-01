@@ -42,4 +42,3 @@ def app():
     app_util.plot_data(age_df, *demographic_args)
     app_util.plot_data(gender_df, *demographic_args)
     app_util.plot_data(race_df, *demographic_args)
-
