@@ -40,6 +40,9 @@ def app():
     df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)  # init df here is more efficient than in cached function
     st.markdown("### Vaccine Administered by Demographics")
     age_df, gender_df, race_df, demographic_args = get_demographic_data(df, chart_option)
-    app_util.plot_data(age_df, *demographic_args)
-    app_util.plot_data(gender_df, *demographic_args)
-    app_util.plot_data(race_df, *demographic_args)
+
+    # create and return chart (then plot here) to take advantage of st.cache;
+    age_chart = app_util.create_chart(age_df, *demographic_args)
+    gender_chart = app_util.create_chart(gender_df, *demographic_args)
+    race_chart = app_util.create_chart(race_df, *demographic_args)
+    app_util.plot_chart(age_chart, gender_chart, race_chart)

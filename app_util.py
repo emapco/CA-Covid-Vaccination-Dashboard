@@ -4,8 +4,8 @@ import pandas as pd
 import altair as alt
 import streamlit as st
 
-
-def plot_data(df, y, y_title, z, chart_title, start_date=None, chart_type=None):
+@st.cache
+def create_chart(df, y, y_title, z, chart_title, start_date=None, chart_type=None):
     """
     Plots pandas Dataframe using altair.Chart() function.
     :param df: dataframe
@@ -55,9 +55,12 @@ def plot_data(df, y, y_title, z, chart_title, start_date=None, chart_type=None):
         tooltip=[alt.Tooltip(c, type='quantitative') for c in columns]
     ).add_selection(selection)
 
-    chart = (lines + points + rule).interactive()
-    st.altair_chart(chart, use_container_width=True)
+    return (lines + points + rule).interactive()
 
+
+def plot_chart(*args):
+    for arg in args:
+        st.altair_chart(arg, use_container_width=True)
 
 @st.cache
 def get_data_from_csv(file):

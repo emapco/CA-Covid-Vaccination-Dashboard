@@ -78,9 +78,11 @@ def app():
     maker_csv_df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)
     st.markdown("### Vaccines administered in California by vaccine maker")
     maker_df, maker_args = get_vaccine_maker_data(maker_csv_df, chart_option)
-    app_util.plot_data(maker_df, *maker_args)
+    maker_chart = app_util.create_chart(maker_df, *maker_args)
+    app_util.plot_chart(maker_chart)
 
     state_csv_df = app_util.get_data_from_csv(STATE_CSV)
     st.markdown("### State partial and fully vaccination rate")
     state_df, state_args = get_state_data(state_csv_df)
-    app_util.plot_data(state_df, *state_args)
+    state_chart = app_util.create_chart(state_df, *state_args)
+    app_util.plot_chart(state_chart)

@@ -56,4 +56,5 @@ def app():
     county_csv_df = app_util.get_data_from_csv(COUNTY_CSV)
     st.markdown("### Counties with under 60% population vaccination rate")
     county_df, county_args = get_county_data(county_csv_df)
-    app_util.plot_data(county_df, *county_args)
+    county_chart = app_util.create_chart(county_df, *county_args)
+    app_util.plot_chart(county_chart)

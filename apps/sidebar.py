@@ -1,6 +1,7 @@
 import streamlit as st
 
 
+@st.cache
 class Sidebar:
     def __init__(self):
         self._chart_option = st.sidebar.radio('Select graph type for non-rate graphs', ["daily", "cumulative"])
