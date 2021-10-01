@@ -4,16 +4,19 @@ import pandas as pd
 import app_util
 from apps import sidebar
 
-STATE_CSV = "data/vaccine_progress/statewide-covid-19-vaccines-administered-by-county.csv"
+STATE_CSV = "data/vaccine_progress/statewide-vaccines-administered-by-county-population.csv"
 DEMOGRAPHICS_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics.csv"
 
 
 @st.cache
-def get_state_data(df):
+def get_state_data():
+    df = app_util.get_data_from_csv(STATE_CSV)
+
     state_data = df[["county", "administered_date", "cumulative_fully_vaccinated",
                      "cumulative_at_least_one_dose", "est_population"]]  # select relevant columns
+    print(state_data)
     state_data = state_data[
-        state_data["county"] == "Statewide"]  # select Statewide data
+        state_data["county"] == "All CA Counties"]  # select Statewide data
     state_data = state_data.groupby(
         ["administered_date"]).sum().reset_index()  # group by date and county and then sum the numeric data
 
@@ -30,18 +33,20 @@ def get_state_data(df):
                                                "cumulative_at_least_one_dose_per_capita"])
     state_vaccine_status = state_vaccine_status.rename(
         columns={"variable": "vaccine_status", "value": "doses"})  # update col. name
+
     plot_arguments = ["doses:Q", "Percent of Californians Vaccinated", "vaccine_status",
                       "People vaccinated in California", "2021-01-01", "area"]
-
     return state_vaccine_status, plot_arguments
 
 
 @st.cache
-def get_vaccine_maker_data(df, chart_option):
+def get_vaccine_maker_data(chart_option):
     if chart_option == "cumulative":
         prefix = "cumulative_"
     else:
         prefix = ""
+
+    df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)
 
     # groups data by date and then melts it into long form to plot different vaccine maker data
     maker_data = df[[f"{prefix}pfizer_doses", f"{prefix}moderna_doses",
@@ -56,8 +61,8 @@ def get_vaccine_maker_data(df, chart_option):
                          value_vars=[f"{prefix}pfizer_doses", f"{prefix}moderna_doses",
                                      f"{prefix}jj_doses", f"{prefix}total_doses"])
     maker_data = maker_data.rename(columns={"variable": "maker", "value": "doses"})  # update col. name
-    plot_arguments = ["doses:Q", "Vaccine doses (x)", "maker", "Vaccines Administered by Maker"]
 
+    plot_arguments = ["doses:Q", "Vaccine doses (x)", "maker", "Vaccines Administered by Maker"]
     return maker_data, plot_arguments
 
 
@@ -73,13 +78,10 @@ def app():
     #########################
     # Main content
     #########################
-    county_csv_df = app_util.get_data_from_csv(STATE_CSV)
-    demographics_csv_df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)
-
     st.markdown("### Vaccines administered in California by vaccine maker")
-    maker_df, maker_args = get_vaccine_maker_data(demographics_csv_df, chart_option)
+    maker_df, maker_args = get_vaccine_maker_data(chart_option)
     app_util.plot_data(maker_df, *maker_args)
 
     st.markdown("### State partial and fully vaccination rate")
-    state_df, state_args = get_state_data(county_csv_df)
+    state_df, state_args = get_state_data()
     app_util.plot_data(state_df, *state_args)

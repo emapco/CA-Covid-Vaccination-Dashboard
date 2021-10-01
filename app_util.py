@@ -22,7 +22,7 @@ def plot_data(df, y, y_title, z, chart_title, start_date=None, chart_type=None):
 
     # filter out dates before start_date
     source = df.set_index("administered_date")  # set index for filtering w/ loc method
-    source = source.loc[start_date:"2021-09-29"].reset_index()  # reset index for plotting
+    source = source.loc[start_date:"2021-09-30"].reset_index()  # reset index for plotting
 
     z_no_qualifier = z.split(":")[0]  # to be able to refer to the column
     y_no_quantifier = y.split(":")[0]

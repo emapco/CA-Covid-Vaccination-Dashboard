@@ -4,16 +4,16 @@ import pandas as pd
 import app_util
 from apps import sidebar
 
-COUNTY_CSV = "data/vaccine_progress/statewide-covid-19-vaccines-administered-by-county.csv"
-
+COUNTY_CSV = "data/vaccine_progress/statewide-vaccines-administered-by-county-population.csv"
 
 @st.cache
-def get_county_data(df):
+def get_county_data():
+    df = app_util.get_data_from_csv(COUNTY_CSV)
     ###########################################################################################
     # vaccine administered by county
     ###########################################################################################
     county_demo_data = df[["county", "est_population", "administered_date",
-                           "cumulative_fully_vaccinated", "suppress_data"]]
+                           "cumulative_fully_vaccinated"]]
     county_demo_data = county_demo_data[county_demo_data["county"] != "Statewide"]  # remove Statewide data
     county_demo_data = county_demo_data.groupby(
         ["administered_date", "county"]).sum().reset_index()  # group by date and county and then sum the numeric data
@@ -30,16 +30,15 @@ def get_county_data(df):
     # vaccine administered by county per capita
     ###########################################################################################
     # Filters out the counties with 50%+ vaccination rate
-    counties_above_50_percent_rate = pd.unique(county_demo_data[
-                                                   county_demo_data["fully_vaccinated_per_capita"] > .5]["county"])
-    counties_below_50_percent_rate = [x for x in pd.unique(county_demo_data["county"])
-                                      if x not in counties_above_50_percent_rate]
-    counties_below_50_percent_rate = county_demo_data.query("county in @counties_below_50_percent_rate")
+    counties_above_60_percent_rate = pd.unique(county_demo_data[
+                                                   county_demo_data["fully_vaccinated_per_capita"] > .6]["county"])
+    counties_below_60_percent_rate = [x for x in pd.unique(county_demo_data["county"])
+                                      if x not in counties_above_60_percent_rate]
+    counties_below_60_percent_rate = county_demo_data.query("county in @counties_below_60_percent_rate")
 
     plot_arguments = ["fully_vaccinated_per_capita:Q", "fully vaccinated per capita",
                       "county", "Vaccines Administered by County"]
-
-    return counties_below_50_percent_rate, plot_arguments
+    return counties_below_60_percent_rate, plot_arguments
 
 
 def app():
@@ -49,13 +48,10 @@ def app():
     # Sidebar
     #########################
     sb = sidebar.Sidebar()  # add sidebar components
-    chart_option = sb.get_chart_option()
 
     #########################
     # Main content
     #########################
-    county_csv_df = app_util.get_data_from_csv(COUNTY_CSV)
-
-    st.markdown("### Counties with under 50% population vaccination rate")
-    county_df, county_args = get_county_data(county_csv_df)
+    st.markdown("### Counties with under 60% population vaccination rate")
+    county_df, county_args = get_county_data()
     app_util.plot_data(county_df, *county_args)
