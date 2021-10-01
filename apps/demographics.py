@@ -24,7 +24,7 @@ def get_demographic_data(df, chart_option):
     return age_group_data, gender_data, race_data, plot_arguments
 
 def app():
-    st.title("California Covid-19 Vaccines Administered")  # Setting page title
+    st.title("California Covid-19 Vaccination Dashboard")  # setting page title
 
     #########################
     # Sidebar

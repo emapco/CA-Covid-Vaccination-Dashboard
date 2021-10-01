@@ -52,8 +52,7 @@ def get_county_data(df):
     county_demo_data = county_demo_data.round(3)  # round columns to 3 decimal places
 
     # select relevant columns for plotting
-    county_demo_data = county_demo_data[["county", "administered_date", "fully_vaccinated_per_capita",
-                                         "suppress_data"]]
+    county_demo_data = county_demo_data[["county", "administered_date", "fully_vaccinated_per_capita"]]
 
     ###########################################################################################
     # vaccine administered by county per capita
@@ -97,7 +96,7 @@ def get_vaccine_maker_data(df, chart_option):
 
 
 def app():
-    st.title("California Covid-19 Vaccines Administered")  # Setting page title
+    st.title("California Covid-19 Vaccination Dashboard")  # setting page title
 
     #########################
     # Sidebar
@@ -111,15 +110,14 @@ def app():
     county_csv_df = app_util.get_data_from_csv(COUNTY_CSV)
     demographics_csv_df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)
 
-    st.markdown("### Vaccine Administered in California by Vaccine Maker")
+    st.markdown("### Vaccines administered in California by vaccine maker")
     maker_df, maker_args = get_vaccine_maker_data(demographics_csv_df, chart_option)
     app_util.plot_data(maker_df, *maker_args)
+
+    st.markdown("### State partial and fully vaccination rate")
+    state_df, state_args = get_state_data(county_csv_df)
+    app_util.plot_data(state_df, *state_args)
 
     st.markdown("### Counties with under 50% population vaccination rate")
     county_df, county_args = get_county_data(county_csv_df)
     app_util.plot_data(county_df, *county_args)
-
-    st.markdown("### State partial and fully vaccinated rate")
-    state_df, state_args = get_state_data(county_csv_df)
-    app_util.plot_data(state_df, *state_args)
-

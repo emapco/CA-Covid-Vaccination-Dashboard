@@ -31,7 +31,7 @@ class MultiApp:
         })
 
     def run(self):
-        st.set_page_config(layout="wide")  # Setting page config to wide mode
+        st.set_page_config(layout="wide")  # setting page config to wide mode
         app = st.sidebar.radio(
             'Go To',
             self.apps,
