@@ -14,7 +14,7 @@ class MultiApp:
         app.run()
     """
     def __init__(self):
-        self.apps = []
+        self.apps = ()
 
     def add_app(self, title, func):
         """Adds a new application.
@@ -25,16 +25,18 @@ class MultiApp:
         title:
             title of the app. Appears in the dropdown in the sidebar.
         """
+        self.apps = list(self.apps)  # tuple is used due to bug mutating the list
         self.apps.append({
             "title": title,
             "function": func
         })
+        self.apps = tuple(self.apps)
 
     def run(self):
         st.set_page_config(layout="wide")  # setting page config to wide mode
         app = st.sidebar.radio(
             'Go To',
             self.apps,
-            format_func=lambda app: app['title'])
+            format_func=lambda returned_app: returned_app['title'])
 
         app['function']()
