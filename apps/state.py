@@ -2,14 +2,11 @@ import streamlit as st
 import pandas as pd
 
 import app_util
+from app_util import DataObject, ChartArgs, STATE_CSV
 from apps import sidebar
 
 
-STATE_CSV = "data/vaccine_progress/statewide-vaccines-administered-by-county-population.csv"
-DEMOGRAPHICS_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics.csv"
-
-
-@st.cache(hash_funcs={pd.DataFrame: pd.util.hash_pandas_object})
+@st.cache(hash_funcs={DataObject: hash})
 def get_state_data():
     df = app_util.get_data_from_csv(STATE_CSV)
 
@@ -29,26 +26,25 @@ def get_state_data():
     state_data = state_data.round(3)  # round numeric data to 3 decimal points
 
     # melt from wide to long form for plotting
-    state_vaccine_status = pd.melt(state_data, id_vars='administered_date',
-                                   value_vars=["fully_vaccinated_per_capita",
-                                               "cumulative_at_least_one_dose_per_capita"])
-    state_vaccine_status = state_vaccine_status.rename(
+    state_vaccination_data = pd.melt(state_data, id_vars='administered_date',
+                                     value_vars=["fully_vaccinated_per_capita",
+                                                 "cumulative_at_least_one_dose_per_capita"])
+    state_vaccination_data = state_vaccination_data.rename(
         columns={"variable": "vaccine_status", "value": "doses"})  # update col. name
 
-    plot_arguments = ["doses:Q", "Percent of Californians Vaccinated", "vaccine_status",
-                      "People vaccinated in California", "2021-01-01", "area"]
-    return state_vaccine_status, plot_arguments
+    state_vaccination_data = DataObject(state_vaccination_data,
+                                        ChartArgs("doses:Q", "Percent of Californians Vaccinated", "vaccine_status",
+                                                  "People vaccinated in California", "2021-01-01", "area"))
+    return state_vaccination_data
 
-
-@st.cache(hash_funcs={pd.DataFrame: pd.util.hash_pandas_object})
+@st.cache(hash_funcs={DataObject: hash})
 def get_vaccine_maker_data(chart_option):
     if chart_option == "cumulative":
         prefix = "cumulative_"
     else:
         prefix = ""
 
-    df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)
-
+    df = app_util.get_data_from_csv(STATE_CSV)
     # groups data by date and then melts it into long form to plot different vaccine maker data
     maker_data = df[[f"{prefix}pfizer_doses", f"{prefix}moderna_doses",
                      f"{prefix}jj_doses", "administered_date"]]  # select columns
@@ -62,9 +58,9 @@ def get_vaccine_maker_data(chart_option):
                          value_vars=[f"{prefix}pfizer_doses", f"{prefix}moderna_doses",
                                      f"{prefix}jj_doses", f"{prefix}total_doses"])
     maker_data = maker_data.rename(columns={"variable": "maker", "value": "doses"})  # update col. name
-
-    plot_arguments = ["doses:Q", "Vaccine doses (x)", "maker", "Vaccines Administered by Maker"]
-    return maker_data, plot_arguments
+    maker_data = DataObject(maker_data, ChartArgs("doses:Q", "Vaccine doses (x)", "maker",
+                                                  "Vaccines Administered by Maker"))
+    return maker_data
 
 
 def app():
@@ -81,21 +77,17 @@ def app():
     #########################
     st.markdown("### Vaccines administered in California by vaccine maker")
 
-    # get data
-    maker_df, maker_args = get_vaccine_maker_data("daily")
-    cum_maker_df, cum_maker_args = get_vaccine_maker_data("cumulative")
-    # create charts
-    maker_chart = app_util.create_chart(maker_df, *maker_args)
-    cum_maker_chart = app_util.create_chart(cum_maker_df, *cum_maker_args)
-
     # plot charts depending on radiobutton option
     if chart_option == "daily":
-        app_util.plot_chart(maker_chart)
+        maker_obj = get_vaccine_maker_data("daily")  # get data
+        maker_chart = app_util.create_chart(maker_obj)   # create chart
+        app_util.plot_chart(maker_chart)  # plot chart
     else:
+        cum_maker_obj = get_vaccine_maker_data("cumulative")
+        cum_maker_chart = app_util.create_chart(cum_maker_obj)
         app_util.plot_chart(cum_maker_chart)
 
     st.markdown("### State partial and fully vaccination rate")
-    state_df, state_args = get_state_data()
-    state_chart = app_util.create_chart(state_df, *state_args)
+    state_obj = get_state_data()
+    state_chart = app_util.create_chart(state_obj)
     app_util.plot_chart(state_chart)
-

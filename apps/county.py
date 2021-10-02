@@ -2,16 +2,13 @@ import streamlit as st
 import pandas as pd
 
 import app_util
+from app_util import DataObject, ChartArgs, STATE_CSV
 from apps import sidebar
 
 
-COUNTY_CSV = "data/vaccine_progress/statewide-vaccines-administered-by-county-population.csv"
-
-
-@st.cache(hash_funcs={pd.DataFrame: pd.util.hash_pandas_object})
+@st.cache(hash_funcs={DataObject: hash})
 def get_county_data():
-    df = app_util.get_data_from_csv(COUNTY_CSV)
-
+    df = app_util.get_data_from_csv(STATE_CSV)
     ###########################################################################################
     # vaccine administered by county
     ###########################################################################################
@@ -38,10 +35,10 @@ def get_county_data():
     counties_below_60_percent_rate = [x for x in pd.unique(county_demo_data["county"])
                                       if x not in counties_above_60_percent_rate]
     counties_below_60_percent_rate = county_demo_data.query("county in @counties_below_60_percent_rate")
-
-    plot_arguments = ["fully_vaccinated_per_capita:Q", "fully vaccinated per capita",
-                      "county", "Vaccines Administered by County"]
-    return counties_below_60_percent_rate, plot_arguments
+    counties_below_60_percent_rate = DataObject(counties_below_60_percent_rate,
+                                                ChartArgs("fully_vaccinated_per_capita:Q", "fully vaccinated per capita"
+                                                          , "county", "Vaccines Administered by County"))
+    return counties_below_60_percent_rate
 
 
 def app():
@@ -56,6 +53,6 @@ def app():
     # Main content
     #########################
     st.markdown("### Counties with under 60% population vaccination rate")
-    county_df, county_args = get_county_data()
-    county_chart = app_util.create_chart(county_df, *county_args)
+    county_obj = get_county_data()
+    county_chart = app_util.create_chart(county_obj)
     app_util.plot_chart(county_chart)
