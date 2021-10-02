@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 import streamlit as st
 import pandas as pd
 
@@ -54,15 +56,16 @@ def app():
     cum_gender_chart = app_util.create_chart(cum_gender_df, *cum_demographic_args)
     cum_race_chart = app_util.create_chart(cum_race_df, *cum_demographic_args)
 
-    copy_age_chart = age_chart
-    copy_gender_chart = gender_chart
-    copy_race_chart = race_chart
-    copy_cum_age_chart = cum_age_chart
-    copy_cum_gender_chart = cum_gender_chart
-    copy_cum_race_chart = cum_race_chart
+    copy_age_chart = deepcopy(age_chart)
+    copy_gender_chart = deepcopy(gender_chart)
+    copy_race_chart = deepcopy(race_chart)
+    copy_cum_age_chart = deepcopy(cum_age_chart)
+    copy_cum_gender_chart = deepcopy(cum_gender_chart)
+    copy_cum_race_chart = deepcopy(cum_race_chart)
 
     # plot charts depending on radiobutton option
     if chart_option == "daily":
         app_util.plot_chart(copy_age_chart, copy_gender_chart, copy_race_chart)
     else:
         app_util.plot_chart(copy_cum_age_chart, copy_cum_gender_chart, copy_cum_race_chart)
+app()
