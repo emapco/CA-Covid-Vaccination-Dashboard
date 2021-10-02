@@ -3,7 +3,6 @@ import pandas as pd
 
 import app_util
 from app_util import DataObject, ChartArgs, STATE_CSV
-from apps import sidebar
 
 
 @st.cache(hash_funcs={DataObject: hash})
@@ -42,13 +41,6 @@ def get_county_data():
 
 
 def app():
-    st.title("California Covid-19 Vaccination Dashboard")  # setting page title
-
-    #########################
-    # Sidebar
-    #########################
-    sb = sidebar.Sidebar()  # add sidebar components
-
     #########################
     # Main content
     #########################

@@ -1,6 +1,7 @@
 """Frameworks for running multiple Streamlit applications as a single app.
 """
 import streamlit as st
+from apps import sidebar
 
 
 class MultiApp:
@@ -32,9 +33,10 @@ class MultiApp:
 
     def run(self):
         st.set_page_config(layout="wide")  # setting page config to wide mode
+        st.title("California Covid-19 Vaccination Dashboard")  # setting page title
         app = st.sidebar.radio(
             'Go To',
             self.apps,
             format_func=lambda returned_app: returned_app['title'])
-
+        sidebar.app()  # adding additional sidebar components
         app['function']()

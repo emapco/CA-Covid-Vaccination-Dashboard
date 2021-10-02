@@ -3,7 +3,6 @@ import pandas as pd
 
 import app_util
 from app_util import DataObject, ChartArgs, STATE_CSV
-from apps import sidebar
 
 
 @st.cache(hash_funcs={DataObject: hash})
@@ -64,21 +63,13 @@ def get_vaccine_maker_data(chart_option):
 
 
 def app():
-    st.title("California Covid-19 Vaccination Dashboard")  # setting page title
-
-    #########################
-    # Sidebar
-    #########################
-    sb = sidebar.Sidebar()  # add sidebar components
-    chart_option = sb.get_chart_option()
-
     #########################
     # Main content
     #########################
     st.markdown("### Vaccines administered in California by vaccine maker")
 
     # plot charts depending on radiobutton option
-    if chart_option == "daily":
+    if st.session_state["graph_type"] == "daily":
         maker_obj = get_vaccine_maker_data("daily")  # get data
         maker_chart = app_util.create_chart(maker_obj)   # create chart
         app_util.plot_chart(maker_chart)  # plot chart
