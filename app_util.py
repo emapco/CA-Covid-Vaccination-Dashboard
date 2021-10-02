@@ -1,10 +1,9 @@
-import os
-
 import pandas as pd
 import altair as alt
 import streamlit as st
 
-@st.cache
+
+@st.cache(allow_output_mutation=True)
 def create_chart(df, y, y_title, z, chart_title, start_date=None, chart_type=None):
     """
     Plots pandas Dataframe using altair.Chart() function.

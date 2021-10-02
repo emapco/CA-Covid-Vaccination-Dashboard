@@ -40,7 +40,7 @@ def get_state_data(df):
 
 @st.cache
 def get_vaccine_maker_data(df, chart_option):
-    if chart_option != "daily" or chart_option is None:
+    if chart_option == "cumulative":
         prefix = "cumulative_"
     else:
         prefix = ""
