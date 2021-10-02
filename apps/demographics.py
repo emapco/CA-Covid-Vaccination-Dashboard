@@ -1,11 +1,13 @@
 import streamlit as st
+import pandas as pd
+
 import app_util
 from apps import sidebar
 
 
 DEMOGRAPHICS_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics.csv"
 
-@st.cache
+@st.cache(hash_funcs={pd.DataFrame: pd.util.hash_pandas_object})
 def get_demographic_data(chart_option):
     if chart_option == "cumulative":
         prefix = "cumulative_"

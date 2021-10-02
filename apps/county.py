@@ -8,7 +8,7 @@ from apps import sidebar
 COUNTY_CSV = "data/vaccine_progress/statewide-vaccines-administered-by-county-population.csv"
 
 
-@st.cache
+@st.cache(hash_funcs={pd.DataFrame: pd.util.hash_pandas_object})
 def get_county_data():
     df = app_util.get_data_from_csv(COUNTY_CSV)
 

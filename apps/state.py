@@ -9,7 +9,7 @@ STATE_CSV = "data/vaccine_progress/statewide-vaccines-administered-by-county-pop
 DEMOGRAPHICS_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics.csv"
 
 
-@st.cache
+@st.cache(hash_funcs={pd.DataFrame: pd.util.hash_pandas_object})
 def get_state_data():
     df = app_util.get_data_from_csv(STATE_CSV)
 
@@ -40,7 +40,7 @@ def get_state_data():
     return state_vaccine_status, plot_arguments
 
 
-@st.cache
+@st.cache(hash_funcs={pd.DataFrame: pd.util.hash_pandas_object})
 def get_vaccine_maker_data(chart_option):
     if chart_option == "cumulative":
         prefix = "cumulative_"
