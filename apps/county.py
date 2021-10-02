@@ -9,7 +9,9 @@ COUNTY_CSV = "data/vaccine_progress/statewide-vaccines-administered-by-county-po
 
 
 @st.cache
-def get_county_data(df):
+def get_county_data():
+    df = app_util.get_data_from_csv(COUNTY_CSV)
+
     ###########################################################################################
     # vaccine administered by county
     ###########################################################################################
@@ -53,8 +55,7 @@ def app():
     #########################
     # Main content
     #########################
-    county_csv_df = app_util.get_data_from_csv(COUNTY_CSV)
     st.markdown("### Counties with under 60% population vaccination rate")
-    county_df, county_args = get_county_data(county_csv_df)
+    county_df, county_args = get_county_data()
     county_chart = app_util.create_chart(county_df, *county_args)
     app_util.plot_chart(county_chart)

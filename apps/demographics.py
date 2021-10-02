@@ -6,11 +6,13 @@ from apps import sidebar
 DEMOGRAPHICS_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics.csv"
 
 @st.cache
-def get_demographic_data(df, chart_option):
+def get_demographic_data(chart_option):
     if chart_option == "cumulative":
         prefix = "cumulative_"
     else:
         prefix = ""
+
+    df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)
 
     # select different demographic categories and two other columns to plot
     age_group_data = df.loc[df["demographic_category"] == "Age Group"] \
@@ -37,12 +39,12 @@ def app():
     #########################
     # Main content
     #########################
-    df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)  # init df here is more efficient than in cached function
     st.markdown("### Vaccine Administered by Demographics")
-    age_df, gender_df, race_df, demographic_args = get_demographic_data(df, chart_option)
-
     # create and return chart (then plot here) to take advantage of st.cache;
+    age_df, gender_df, race_df, demographic_args = get_demographic_data(chart_option)
+    # create charts
     age_chart = app_util.create_chart(age_df, *demographic_args)
     gender_chart = app_util.create_chart(gender_df, *demographic_args)
     race_chart = app_util.create_chart(race_df, *demographic_args)
     app_util.plot_chart(age_chart, gender_chart, race_chart)
+

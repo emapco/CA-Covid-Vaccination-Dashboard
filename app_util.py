@@ -3,7 +3,7 @@ import altair as alt
 import streamlit as st
 
 
-@st.cache(allow_output_mutation=True)
+@st.cache(hash_funcs={alt.LayerChart: lambda _: None})
 def create_chart(df, y, y_title, z, chart_title, start_date=None, chart_type=None):
     """
     Plots pandas Dataframe using altair.Chart() function.
@@ -60,6 +60,7 @@ def create_chart(df, y, y_title, z, chart_title, start_date=None, chart_type=Non
 def plot_chart(*args):
     for arg in args:
         st.altair_chart(arg, use_container_width=True)
+
 
 @st.cache
 def get_data_from_csv(file):
