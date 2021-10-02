@@ -5,7 +5,7 @@ import altair as alt
 import streamlit as st
 
 
-@st.cache(hash_funcs={alt.LayerChart: lambda _: None})
+@st.cache(hash_funcs={alt.LayerChart: id})
 def create_chart(df, y, y_title, z, chart_title, start_date=None, chart_type=None):
     """
     Plots pandas Dataframe using altair.Chart() function.
