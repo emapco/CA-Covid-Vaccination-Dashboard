@@ -62,6 +62,7 @@ def plot_chart(*args):
         st.altair_chart(arg, use_container_width=True)
 
 
+@st.cache(hash_funcs={pd.DataFrame: pd.util.hash_pandas_object})
 def get_data_from_csv(file):
     """
     Creates a dataframe using the csv file specified in file.

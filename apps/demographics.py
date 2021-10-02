@@ -42,11 +42,20 @@ def app():
     # Main content
     #########################
     st.markdown("### Vaccine Administered by Demographics")
-    # create and return chart (then plot here) to take advantage of st.cache;
-    age_df, gender_df, race_df, demographic_args = get_demographic_data(chart_option)
+    # get all data
+    age_df, gender_df, race_df, demographic_args = get_demographic_data("daily")
+    cum_age_df, cum_gender_df, cum_race_df, cum_demographic_args = get_demographic_data("cumulative")
+
     # create charts
     age_chart = app_util.create_chart(age_df, *demographic_args)
     gender_chart = app_util.create_chart(gender_df, *demographic_args)
     race_chart = app_util.create_chart(race_df, *demographic_args)
-    app_util.plot_chart(age_chart, gender_chart, race_chart)
+    cum_age_chart = app_util.create_chart(cum_age_df, *cum_demographic_args)
+    cum_gender_chart = app_util.create_chart(cum_gender_df, *cum_demographic_args)
+    cum_race_chart = app_util.create_chart(cum_race_df, *cum_demographic_args)
 
+    # plot charts depending on radiobutton option
+    if chart_option == "daily":
+        app_util.plot_chart(age_chart, gender_chart, race_chart)
+    else:
+        app_util.plot_chart(cum_age_chart, cum_gender_chart, cum_race_chart)

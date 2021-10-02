@@ -80,11 +80,22 @@ def app():
     # Main content
     #########################
     st.markdown("### Vaccines administered in California by vaccine maker")
-    maker_df, maker_args = get_vaccine_maker_data(chart_option)
+
+    # get data
+    maker_df, maker_args = get_vaccine_maker_data("daily")
+    cum_maker_df, cum_maker_args = get_vaccine_maker_data("cumulative")
+    # create charts
     maker_chart = app_util.create_chart(maker_df, *maker_args)
-    app_util.plot_chart(maker_chart)
+    cum_maker_chart = app_util.create_chart(cum_maker_df, *cum_maker_args)
+
+    # plot charts depending on radiobutton option
+    if chart_option == "daily":
+        app_util.plot_chart(maker_chart)
+    else:
+        app_util.plot_chart(cum_maker_chart)
 
     st.markdown("### State partial and fully vaccination rate")
     state_df, state_args = get_state_data()
     state_chart = app_util.create_chart(state_df, *state_args)
     app_util.plot_chart(state_chart)
+
