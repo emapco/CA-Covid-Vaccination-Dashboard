@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 import altair as alt
 import streamlit as st
@@ -70,6 +72,11 @@ def get_data_from_csv(file):
     :param file: file path to csv file
     :return: df: dataframe
     """
+    if os.name == "nt":
+        file = os.path.dirname(__file__) + "\\" + file.replace("/", "\\")
+    else:
+        file = os.path.dirname(__file__) + "/" + file
+
     try:
         df = pd.read_csv(file)
         df["administered_date"] = pd.to_datetime(df["administered_date"])
