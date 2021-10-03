@@ -65,14 +65,19 @@ def get_data_from_csv(file):
     :param file: file path to csv file
     :return: df: dataframe
     """
-    if os.name == "nt":
+    # changes file path from relative to absolute based on platform
+    if os.name == "nt":  # windows
         file = os.path.dirname(__file__) + "\\" + file.replace("/", "\\")
-    else:
+    else:  # other
         file = os.path.dirname(__file__) + "/" + file
 
     try:
         df = pd.read_csv(file)
-        df["administered_date"] = pd.to_datetime(df["administered_date"])
+        for col in df.columns:
+            if col == "administered_date":  # update for plotting
+                df["administered_date"] = pd.to_datetime(df["administered_date"])
+            if df[col].dtypes == "object":  # update column types for performance
+                df[col] = df[col].astype('category')
         return df
     except KeyError:
         print("ERROR: administered_date not found")
@@ -90,13 +95,12 @@ class DataObject:
         """
         self.df = df
         self.args = args
-        self.key = args.y_title + args.chart_title
 
 
 class ChartArgs:
     def __init__(self, y, y_title, z, chart_title, start_date=None, chart_type=None):
         """
-        Object to store arguments for plotting DataObject.df
+        Object to store arguments for plotting DataObject.df as an altair.Chart
         :param y: y-axis df column name
         :param y_title: y-axis title
         :param z: z-axis df column name
