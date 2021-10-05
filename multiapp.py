@@ -33,7 +33,7 @@ class MultiApp:
 
     def run(self):
         st.set_page_config(layout="wide")  # setting page config to wide mode
-        st.title("California Covid-19 Vaccination Dashboard")  # setting page title
+        st.title("California COVID-19 Data Dashboard")  # setting page title
         app = st.sidebar.radio(
             'Go To',
             self.apps,

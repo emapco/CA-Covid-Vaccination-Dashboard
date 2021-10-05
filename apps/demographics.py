@@ -6,7 +6,6 @@ from app_util import DataObject, ChartArgs, DEMOGRAPHICS_CSV
 
 @st.cache(hash_funcs={tuple: hash})
 def get_demographic_data(chart_option):
-    print("get_demographic_data")
     if chart_option == "cumulative":
         prefix = "cumulative_"
     else:

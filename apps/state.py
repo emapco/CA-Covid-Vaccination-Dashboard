@@ -7,7 +7,6 @@ from app_util import DataObject, ChartArgs, STATE_CSV
 
 @st.cache(hash_funcs={DataObject: hash})
 def get_state_data():
-    print('get_state_data')
     state_data = app_util.get_data_from_csv(STATE_CSV, ["county", "administered_date", "cumulative_fully_vaccinated",
                                                         "cumulative_at_least_one_dose", "est_population"])
     state_data = state_data[state_data["county"] == "All CA Counties"]  # select Statewide data
@@ -36,7 +35,6 @@ def get_state_data():
 
 @st.cache(hash_funcs={DataObject: hash})
 def get_vaccine_maker_data(chart_option):
-    print('get_vaccine_maker_data')
     if chart_option == "cumulative":
         prefix = "cumulative_"
     else:
@@ -75,7 +73,7 @@ def app():
         cum_maker_chart = app_util.create_chart(cum_maker_obj)
         app_util.plot_chart(cum_maker_chart)
 
-    st.markdown("### State partial and fully vaccination rate")
+    st.markdown("### State partial and fully vaccination coverage")
     state_obj = get_state_data()
     state_chart = app_util.create_chart(state_obj)
     app_util.plot_chart(state_chart)

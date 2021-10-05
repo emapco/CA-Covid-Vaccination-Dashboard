@@ -7,7 +7,7 @@ app = MultiApp()
 # Adding applications
 app.add_app("Demographic Data", demographics.app)
 app.add_app("State Data", state.app)
-app.add_app("County Data", county.app)
+app.add_app("State Map with County Data", county.app)
 
 # The main app
 app.run()

@@ -29,14 +29,14 @@ def app():
         st.write("Sources:")
         st.write("Vaccine Data: [California Department of Public Health]"
                  "(https://data.chhs.ca.gov/dataset/vaccine-progress-dashboard)")
-        # st.write("Covid-19 Cases and Deaths Data: [California Department of Public Health]("
-        #         "https://data.chhs.ca.gov/dataset/covid-19-time-series-metrics-by-county-and-state)")
+        st.write("Covid-19 Cases and Deaths Data: [California Department of Public Health]("
+                 "https://data.chhs.ca.gov/dataset/covid-19-time-series-metrics-by-county-and-state)")
         st.write("Population Data: [California Department of Finance: Demographic Research Unit]"
                  "(https://dof.ca.gov/Forecasting/Demographics/Estimates/e-1/)")
+        st.write("Geographic data: [ArcGIS]"
+                 "(https://www.arcgis.com/home/item.html?id=2f227372477d4cddadc0cd0b002ec657)")
 
-        # st.write("Geographic data: [ArcGIS]
-        # (https://www.arcgis.com/home/item.html?id=2f227372477d4cddadc0cd0b002ec657)"
-
+        st.sidebar.write('Data last updated on: 10/03/21')
 
 def callback(self):
     if self.graph_type_key in st.session_state:
