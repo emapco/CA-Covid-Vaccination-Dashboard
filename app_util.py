@@ -6,6 +6,7 @@ import streamlit as st
 
 STATE_CSV = "data/vaccine_progress/statewide-vaccines-administered-by-county-population.csv"
 DEMOGRAPHICS_CSV = "data/vaccine_progress/covid-19-vaccines-administered-by-demographics.csv"
+COUNTIES_SHP = "data/ca_county_boundaries/CA_counties.shp"
 
 @st.cache(hash_funcs={alt.LayerChart: id})
 def create_chart(data_obj):
@@ -14,6 +15,7 @@ def create_chart(data_obj):
     :param data_obj: DataObject object that contains a df and plot arguments
     :return: None
     """
+    print("Creating plot", data_obj.args.y, data_obj.args.chart_title)
     # filter out dates before start_date
     source = data_obj.df.set_index("administered_date")  # set index for filtering w/ loc method
     source = source.loc[data_obj.args.start_date:"2021-09-30"].reset_index()  # reset index for plotting
@@ -56,15 +58,18 @@ def plot_chart(*args):
     for chart in args:
         st.altair_chart(chart, use_container_width=True)
 
-
+# potential cache kwargs: max_entries=10, ttl=3600
 @st.cache(hash_funcs={pd.DataFrame: pd.util.hash_pandas_object})
-def get_data_from_csv(file):
+def get_data_from_csv(file, col_names=None):
     """
     Creates a dataframe using the csv file specified in file.
     It also sets the date column as a datetime data column
+    :param col_names: columns to extract from datafile
     :param file: file path to csv file
     :return: df: dataframe
     """
+    if col_names is None:
+        col_names = []
     # changes file path from relative to absolute based on platform
     if os.name == "nt":  # windows
         file = os.path.dirname(__file__) + "\\" + file.replace("/", "\\")
@@ -72,7 +77,7 @@ def get_data_from_csv(file):
         file = os.path.dirname(__file__) + "/" + file
 
     try:
-        df = pd.read_csv(file)
+        df = pd.read_csv(file, usecols=col_names, index_col=False, header=0)
         for col in df.columns:
             if col == "administered_date":  # update for plotting
                 df["administered_date"] = pd.to_datetime(df["administered_date"])

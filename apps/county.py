@@ -7,12 +7,13 @@ from app_util import DataObject, ChartArgs, STATE_CSV
 
 @st.cache(hash_funcs={DataObject: hash})
 def get_county_data():
-    df = app_util.get_data_from_csv(STATE_CSV)
+    print("get_county_data")
+    county_demo_data = app_util.get_data_from_csv(STATE_CSV, ["county", "est_population", "administered_date",
+                                                              "cumulative_fully_vaccinated"])
     ###########################################################################################
     # vaccine administered by county
     ###########################################################################################
-    county_demo_data = df[["county", "est_population", "administered_date",
-                           "cumulative_fully_vaccinated"]]
+
     county_demo_data = county_demo_data[county_demo_data["county"] != "Statewide"]  # remove Statewide data
     county_demo_data = county_demo_data.groupby(
         ["administered_date", "county"]).sum().reset_index()  # group by date and county and then sum the numeric data
@@ -22,9 +23,8 @@ def get_county_data():
         county_demo_data["cumulative_fully_vaccinated"] / county_demo_data["est_population"]
     county_demo_data = county_demo_data.round(3)  # round columns to 3 decimal places
 
-    # select relevant columns for plotting
-    county_demo_data = county_demo_data[["county", "administered_date", "fully_vaccinated_per_capita"]]
-
+    # drop irrelevant columns
+    county_demo_data.drop(columns=["cumulative_fully_vaccinated", "est_population"])
     ###########################################################################################
     # vaccine administered by county per capita
     ###########################################################################################

@@ -23,14 +23,19 @@ def app():
                  "date.")
         st.write("**Estimated Population**: DOF estimated all ages population for year 2021 "
                  "(January 2021 file version)")
-        st.write("**X per capita**: X/Estimated Population")
+        st.write("**Value per capita**: Value/Estimated Population")
 
         st.write("")
         st.write("Sources:")
         st.write("Vaccine Data: [California Department of Public Health]"
                  "(https://data.chhs.ca.gov/dataset/vaccine-progress-dashboard)")
+        # st.write("Covid-19 Cases and Deaths Data: [California Department of Public Health]("
+        #         "https://data.chhs.ca.gov/dataset/covid-19-time-series-metrics-by-county-and-state)")
         st.write("Population Data: [California Department of Finance: Demographic Research Unit]"
                  "(https://dof.ca.gov/Forecasting/Demographics/Estimates/e-1/)")
+
+        # st.write("Geographic data: [ArcGIS]
+        # (https://www.arcgis.com/home/item.html?id=2f227372477d4cddadc0cd0b002ec657)"
 
 
 def callback(self):

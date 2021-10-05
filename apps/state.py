@@ -7,13 +7,10 @@ from app_util import DataObject, ChartArgs, STATE_CSV
 
 @st.cache(hash_funcs={DataObject: hash})
 def get_state_data():
-    df = app_util.get_data_from_csv(STATE_CSV)
-
-    state_data = df[["county", "administered_date", "cumulative_fully_vaccinated",
-                     "cumulative_at_least_one_dose", "est_population"]]  # select relevant columns
-
-    state_data = state_data[
-        state_data["county"] == "All CA Counties"]  # select Statewide data
+    print('get_state_data')
+    state_data = app_util.get_data_from_csv(STATE_CSV, ["county", "administered_date", "cumulative_fully_vaccinated",
+                                                        "cumulative_at_least_one_dose", "est_population"])
+    state_data = state_data[state_data["county"] == "All CA Counties"]  # select Statewide data
     state_data = state_data.groupby(
         ["administered_date"]).sum().reset_index()  # group by date and county and then sum the numeric data
 
@@ -36,17 +33,17 @@ def get_state_data():
                                                   "People vaccinated in California", "2021-01-01", "area"))
     return state_vaccination_data
 
+
 @st.cache(hash_funcs={DataObject: hash})
 def get_vaccine_maker_data(chart_option):
+    print('get_vaccine_maker_data')
     if chart_option == "cumulative":
         prefix = "cumulative_"
     else:
         prefix = ""
-
-    df = app_util.get_data_from_csv(STATE_CSV)
+    maker_data = app_util.get_data_from_csv(STATE_CSV, [f"{prefix}pfizer_doses", f"{prefix}moderna_doses",
+                                                        f"{prefix}jj_doses", "administered_date"])
     # groups data by date and then melts it into long form to plot different vaccine maker data
-    maker_data = df[[f"{prefix}pfizer_doses", f"{prefix}moderna_doses",
-                     f"{prefix}jj_doses", "administered_date"]]  # select columns
     maker_data = maker_data.groupby("administered_date").sum().reset_index()  # group and sum vaccines
 
     maker_data[f"{prefix}total_doses"] = maker_data[f"{prefix}pfizer_doses"] \
@@ -71,7 +68,7 @@ def app():
     # plot charts depending on radiobutton option
     if st.session_state["graph_type"] == "daily":
         maker_obj = get_vaccine_maker_data("daily")  # get data
-        maker_chart = app_util.create_chart(maker_obj)   # create chart
+        maker_chart = app_util.create_chart(maker_obj)  # create chart
         app_util.plot_chart(maker_chart)  # plot chart
     else:
         cum_maker_obj = get_vaccine_maker_data("cumulative")

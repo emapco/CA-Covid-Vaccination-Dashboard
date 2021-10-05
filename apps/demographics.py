@@ -6,12 +6,14 @@ from app_util import DataObject, ChartArgs, DEMOGRAPHICS_CSV
 
 @st.cache(hash_funcs={tuple: hash})
 def get_demographic_data(chart_option):
+    print("get_demographic_data")
     if chart_option == "cumulative":
         prefix = "cumulative_"
     else:
         prefix = ""
+    df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV, ["demographic_value", "demographic_category",
+                                                       f"{prefix}total_doses", "administered_date"])
 
-    df = app_util.get_data_from_csv(DEMOGRAPHICS_CSV)
     # select different demographic categories and two other columns to plot
     age_data = df.loc[df["demographic_category"] == "Age Group"] \
         [["demographic_value", f"{prefix}total_doses", "administered_date"]]
