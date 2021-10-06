@@ -15,7 +15,6 @@ def create_chart(data_obj):
     :param data_obj: DataObject object that contains a df and plot arguments
     :return: None
     """
-    print("Creating plot", data_obj.args.y, data_obj.args.chart_title)
     # filter out dates before start_date
     source = data_obj.df.set_index("administered_date")  # set index for filtering w/ loc method
     source = source.loc[data_obj.args.start_date:"2021-09-30"].reset_index()  # reset index for plotting
@@ -89,7 +88,6 @@ def get_data_from_csv(file, col_names=None):
     except FileNotFoundError:
         print("ERROR: File not found")
     return None
-
 
 class DataObject:
     def __init__(self, df, args):

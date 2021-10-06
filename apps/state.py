@@ -52,8 +52,8 @@ def get_vaccine_maker_data(chart_option):
                          value_vars=[f"{prefix}pfizer_doses", f"{prefix}moderna_doses",
                                      f"{prefix}jj_doses", f"{prefix}total_doses"])
     maker_data = maker_data.rename(columns={"variable": "maker", "value": "doses"})  # update col. name
-    maker_data = DataObject(maker_data, ChartArgs("doses:Q", "Vaccine doses (x)", "maker",
-                                                  "Vaccines Administered by Maker"))
+    maker_data = DataObject(maker_data, ChartArgs(y="doses:Q", y_title="Vaccine doses (x)", z="maker",
+                                                  chart_title="Vaccines Administered by Manufacturer"))
     return maker_data
 
 
@@ -61,7 +61,7 @@ def app():
     #########################
     # Main content
     #########################
-    st.markdown("### Vaccines administered in California by vaccine maker")
+    st.markdown("### Vaccines administered in California by vaccine manufacturer")
 
     # plot charts depending on radiobutton option
     if st.session_state["graph_type"] == "daily":
@@ -73,7 +73,7 @@ def app():
         cum_maker_chart = app_util.create_chart(cum_maker_obj)
         app_util.plot_chart(cum_maker_chart)
 
-    st.markdown("### State partial and fully vaccination coverage")
+    st.markdown("### Full and partial vaccination coverage")
     state_obj = get_state_data()
     state_chart = app_util.create_chart(state_obj)
     app_util.plot_chart(state_chart)

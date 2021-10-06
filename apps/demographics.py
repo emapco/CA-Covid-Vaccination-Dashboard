@@ -34,7 +34,7 @@ def app():
     #########################
     # Main content
     #########################
-    st.markdown("### Vaccine Administered by Demographics")
+    st.markdown("### Vaccines Administered by Demographics")
     if st.session_state["graph_type"] == "daily":
         demographic_data_objs = get_demographic_data("daily")  # get data
         charts = []

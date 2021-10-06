@@ -18,7 +18,7 @@ def get_data():
             polygon_gdf[col] = pd.to_numeric(polygon_gdf[col], downcast="float")
 
     # produced a simplified polygon object column and overwrite the original
-    simplified_polygons = polygon_gdf.simplify(0.0005)
+    simplified_polygons = polygon_gdf.simplify(0.0001)
     polygon_gdf['geometry'] = simplified_polygons
     return polygon_gdf
 
@@ -52,7 +52,7 @@ def create_deck(gdf):
         ),
         pdk.Layer("GeoJsonLayer",
                   gdf,
-                  opacity=0.1,
+                  opacity=0.05,
                   extruded=True,
                   wireframe=True,
                   pickable=True,
@@ -63,14 +63,15 @@ def create_deck(gdf):
     ]
     # create tooltip
     tooltip = {"html": "County: <b>{NAME}</b><br>"
-                       "Cases (last 30 days): <b>{CASES_LAST_30}</b><br>"
-                       "Deaths (last 30 days): <b>{DEATHS_LAST_30}</b><br>"
-                       "Vaccination coverage (10/08/21): <b>{FORMATTED_RATE}</b>"}
+                       "Cases (Month of September): <b>{CASES_LAST_30}</b><br>"
+                       "Deaths (Month of September): <b>{DEATHS_LAST_30}</b><br>"
+                       "Vaccination coverage (10/03/21): <b>{FORMATTED_RATE}</b>"}
     # create init viewport location
     initial_view_state = pdk.ViewState(latitude=37.7749295, longitude=-120.4194155,
                                        zoom=5, bearing=75, pitch=60)
     # create deck
-    deck = pdk.Deck(layers=layers, tooltip=tooltip, initial_view_state=initial_view_state, map_style='dark_no_labels')
+    deck = pdk.Deck(layers=layers, tooltip=tooltip, initial_view_state=initial_view_state,
+                    map_style='dark_no_labels')
     return deck
 
 
@@ -81,8 +82,9 @@ def app():
     #########################
     # Main content
     #########################
-    st.markdown("### COVID-19 vaccine coverage and COVID-19 Cases and Deaths (last 30 days)")
+    st.markdown("### COVID-19 vaccine coverage and COVID-19 Cases and Deaths")
     st.pydeck_chart(deck)  # plot deck with streamlit
-    st.write("Column height is proportional to the number of COVID-19 cases reported in the last 30 days.")
-    st.write("Circle radius is proportional to the number of COVID-19 deaths reported in the last 30 days.")
-    st.write("Shorter the wavelength of color (from red to violet) represents larger vaccination coverage.")
+    st.write("Column height is proportional to the number of COVID-19 cases "
+             "(reported in the month of September) per capita.")
+    st.write("Circle radius is proportional to the number of COVID-19 deaths "
+             "(reported in the month of Month of September) per capita.")
