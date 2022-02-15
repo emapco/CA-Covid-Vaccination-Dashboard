@@ -18,7 +18,7 @@ def get_data():
             polygon_gdf[col] = pd.to_numeric(polygon_gdf[col], downcast="float")
 
     # produced a simplified polygon object column and overwrite the original
-    simplified_polygons = polygon_gdf.simplify(0.0001)
+    simplified_polygons = polygon_gdf.simplify(0.0005)
     polygon_gdf['geometry'] = simplified_polygons
     return polygon_gdf
 
